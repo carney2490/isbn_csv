@@ -21,4 +21,15 @@ class TestISBN < Minitest::Test
 		isbn_array = "1234567890"
 		assert_equal(10, get_isbn_array_count(isbn_array))
 	end
+
+	def test_for_isbn_invalidity
+		isbn_number = "1234567890"
+		assert_equal(false, figure_validity(isbn_number))
+	end
+
+	def test_for_isbn_validity
+		isbn_number = "8711075597"
+		assert_equal(true, figure_validity(isbn_number))
+	end
+
 end
