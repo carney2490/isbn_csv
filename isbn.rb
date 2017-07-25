@@ -54,7 +54,9 @@ def figure_validity_for_isbn_13(user_isbn)
 				sum = sum + isbn_number[counter] * 3	
 			end
 		end
+		counter = counter + 1
 
+end
 	leftover = sum % 10
 	check = 10 - leftover
 	if check == isbn_number[12] 
@@ -65,7 +67,6 @@ def figure_validity_for_isbn_13(user_isbn)
 		puts "Your isbn is not valid"
 		false
 	end
-end
 	# puts "sum = #{sum}"
 	# puts "leftover = #{leftover}"
 	# zero_position = isbn_number[0].to_i * 1
