@@ -7,7 +7,7 @@ def get_isbn_array_count(user_isbn)
 end
 
 def string_length?(user_isbn)
-	if user_isbn.length == 10
+	if user_isbn.length == 10 || user_isbn.length == 13
 		true
 	else
 		false
@@ -22,6 +22,54 @@ def run_program(user_isbn)
 		p "Must be 10 digits"
 	end
 end
+
+def figure_validity_for_isbn_13(user_isbn)
+	isbn_number = user_isbn.split("") {
+		|s| s.to_i
+	}
+	isbn_type = isbn_number.class
+	puts "isbn_number is #{isbn_number}"
+	puts "isbn_number type is #{isbn_type}"
+
+	isbn_length = isbn_number.count
+	sum = 0
+	counter = 0
+	leftover = 0
+	isbn_length.times do
+		isbn_number[counter]=isbn_number[counter].to_i
+		if counter != 12
+			if counter % 2 == 0
+				sum = sum + isbn_number[counter]
+			else 
+				sum = sum + isbn_number[counter] * 3	
+			end
+		end
+
+	leftover = sum % 10
+	check = 10 - leftover
+	if check == isbn_number[12] 
+		p "Congrats your ISBN number is valid"
+		true
+
+	else
+		p "Your isbn is invalid"
+		false
+	end
+end
+	puts "sum = #{sum}"
+	puts "leftover = #{leftover}"
+	# zero_position = isbn_number[0].to_i * 1
+	# one_position = isbn_number[1].to_i * 3
+	# two_position = isbn_number[2].to_i * 1
+	# three_position = isbn_number[3].to_i * 3
+
+	puts "one position is #{one_position}"
+
+	#s = 9×1 + 7×3 + 8×1 + 0×3 + 3×1 + 0×3 + 6×1 + 4×3 + 0×1 + 6×3 + 1×1 + 5×3
+
+end
+
+figure_validity_for_isbn_13("9781250123114")
 
 def figure_validity(user_isbn)
 	isbn_number = user_isbn.split("") {
