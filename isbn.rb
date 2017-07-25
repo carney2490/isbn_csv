@@ -1,4 +1,11 @@
 #am
+def remove_invalid_chars(user_isbn)
+	user_isbn = user_isbn.gsub("-", "") #this strips the dashes from isbn and redefines it without them
+	user_isbn = user_isbn.gsub(" ", "") #this strips the whitespace and redifines isbn by using the !. remember ! is permenantish
+	user_isbn = user_isbn.gsub(/[^0-9,^x,.]/, "")	#allows 0-9, x; periods are not allowed
+	p user_isbn
+end
+
 def get_isbn_array_count(user_isbn)
 	isbn_array = user_isbn.split("") {
 		|s| s.to_i
@@ -61,14 +68,18 @@ def figure_validity_for_isbn_13(user_isbn)
 end
 	leftover = sum % 10 #dividing by 10 to get the remainder
 	check = 10 - leftover #subtracting remainder from 10 to get check digit (13th nmbr = 12 digit)
-	if check == isbn_number[12] #comparing the 13th digit (12th position) to the check digit
-		puts "Congrats your ISBN number is valid"
-		true
+		if check == 10
+			check = "x"
+		end
+		if check == isbn_number[12] #comparing the 13th digit (12th position) to the check digit
+			puts "Congrats your ISBN number is valid"
+			true
 
-	else
-		puts "Your isbn is not valid"
-		false
-	end
+		else
+			puts "Your isbn is not valid"
+			false
+		
+		end
 	# puts "sum = #{sum}"
 	# puts "leftover = #{leftover}"
 	# zero_position = isbn_number[0].to_i * 1
@@ -93,7 +104,11 @@ def figure_validity(user_isbn) #calculating validity of mod 10 without a check d
 	multiple = 10 #first digit is multiplied by 10
 	sum = 0
 
+
 	isbn_length.times do 
+		if isbn_number[counter] == "x"
+			isbn_number[counter] = "10"
+		end
 		sum = sum + (isbn_number[counter].to_i * multiple)
 		counter = counter + 1
 		multiple = multiple - 1
@@ -115,6 +130,7 @@ end
 def user_isbn()
 puts "What is your isbn number?"
 user_isbn = gets.chomp
+remove_invalid_chars(user_isbn)
 run_program(user_isbn)
 
 end
