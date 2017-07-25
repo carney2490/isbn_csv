@@ -14,12 +14,22 @@ def string_length?(user_isbn)
 	end
 end
 
+def check_string_length(user_isbn)
+	if user_isbn.length == 10
+		"ten"
+	elsif user_isbn.length == 13
+		"thirteen"
+	# else "Your ISBN number is invalid"
+	end
+end
+
 def run_program(user_isbn)
-	if string_length?(user_isbn) == true
+	if check_string_length(user_isbn) == "ten"
 		figure_validity(user_isbn)
-		
+	elsif check_string_length(user_isbn) == "thirteen"
+		figure_validity_for_isbn_13(user_isbn)
 	else
-		p "Must be 10 digits"
+		p "Must be 10 or 13 digits"
 	end
 end
 
@@ -28,8 +38,8 @@ def figure_validity_for_isbn_13(user_isbn)
 		|s| s.to_i
 	}
 	isbn_type = isbn_number.class
-	puts "isbn_number is #{isbn_number}"
-	puts "isbn_number type is #{isbn_type}"
+	# puts "isbn_number is #{isbn_number}"
+	# puts "isbn_number type is #{isbn_type}"
 
 	isbn_length = isbn_number.count
 	sum = 0
@@ -48,28 +58,28 @@ def figure_validity_for_isbn_13(user_isbn)
 	leftover = sum % 10
 	check = 10 - leftover
 	if check == isbn_number[12] 
-		p "Congrats your ISBN number is valid"
+		puts "Congrats your ISBN number is valid"
 		true
 
 	else
-		p "Your isbn is invalid"
+		puts "Your isbn is not valid"
 		false
 	end
 end
-	puts "sum = #{sum}"
-	puts "leftover = #{leftover}"
+	# puts "sum = #{sum}"
+	# puts "leftover = #{leftover}"
 	# zero_position = isbn_number[0].to_i * 1
 	# one_position = isbn_number[1].to_i * 3
 	# two_position = isbn_number[2].to_i * 1
 	# three_position = isbn_number[3].to_i * 3
 
-	puts "one position is #{one_position}"
+	# puts "one position is #{one_position}"
 
 	#s = 9×1 + 7×3 + 8×1 + 0×3 + 3×1 + 0×3 + 6×1 + 4×3 + 0×1 + 6×3 + 1×1 + 5×3
 
 end
 
-figure_validity_for_isbn_13("9781250123114")
+
 
 def figure_validity(user_isbn)
 	isbn_number = user_isbn.split("") {
