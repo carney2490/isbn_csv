@@ -1,3 +1,4 @@
+#am
 def get_isbn_array_count(user_isbn)
 	isbn_array = user_isbn.split("") {
 		|s| s.to_i
